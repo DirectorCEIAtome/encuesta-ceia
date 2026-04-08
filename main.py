@@ -97,4 +97,18 @@ if enviar:
         df.to_csv(archivo_csv, mode='a', header=False, index=False, encoding='utf-8-sig')
     
     st.success("✅ Su evaluación ha sido registrada exitosamente. Esta información será utilizada para la mejora continua de nuestro CEIA.")
-    st.balloons()
+    st.balloons()# --- SECCIÓN PARA DIRECCIÓN (DESCARGA DE DATOS) ---
+st.markdown("---")
+with st.expander("🔐 Acceso Administrativo (Solo Dirección)"):
+    password = st.text_input("Ingrese contraseña para descargar reportes:", type="password")
+    if password == "CEIA2026":  # Usted puede cambiar esta clave
+        if os.path.exists('datos_gestion_ceia.csv'):
+            with open('datos_gestion_ceia.csv', 'rb') as f:
+                st.download_button(
+                    label="📥 Descargar Reporte Completo (Excel/CSV)",
+                    data=f,
+                    file_name=f"Reporte_Convivencia_{datetime.now().strftime('%d_%m')}.csv",
+                    mime="text/csv"
+                )
+        else:
+            st.warning("Aún no hay respuestas registradas para descargar.")
